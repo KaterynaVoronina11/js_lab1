@@ -8,77 +8,87 @@ arrayFriends[0] = {
 
 arrayFriends[1] = {
 	name: "Managment znan",
-	data: "15.12.2023",
+	data: "15.11.2023",
 	place: ""
 };
 
 arrayFriends[2] = {
 	name: "IT English",
-	data: "17.12.2023",
+	data: "27.11.2023",
 	place: "107"
 };
 
 arrayFriends[3] = {
 	name: "Math for computer science",
-	data: "20.12.2023",
+	data: "26.11.2023",
 	place: ""
 };
 
 arrayFriends[4] = {
 	name: "Philisophy",
-	data: "22.10.2023",
+	data: "20.11.2023",
 	place: "223"
 };
 
 arrayFriends[5] = {
 	name: "Machine Learning",
-	data: "23.10.2023",
+	data: "25.11.2023",
 	place: ""
 };
 
 function diff_day(text){
-    var currentDate = new Date();
+    var currentDate = new Date("2023-11-26");
     var date1 = new Date(text.replace(/(\d+).(\d+).(\d+)/, '$3/$2/$1'));
-    var timeDiff = Math.abs(currentDate.getTime() - date1.getTime());
-    var daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24)) - 1;
+   
+    let timeDiff=Math.abs(currentDate.getTime()-date1.getTime());
+
+    let daysDiff=Math.round(timeDiff/(1000*3600*24));
+
     return daysDiff;
 }
+
 
 function output(item){
 	var text = item['data'];
 	var diffDays = diff_day(text);
-	if (diffDays == 5) {
-		html = html + "<tr style='background:green;'>";
-		diffDays = "Останній день перед іспитом-КОНСУЛЬТАЦІЯ!";
-	} else if (diffDays > 5){
-		html = html + "<tr>";
-		diffDays = "Іспит через " + diffDays + " дні";
-	} else if (diffDays == 0){
-		html = html + "<tr style='background:yellow;'>";
-		diffDays = "День іспиту вже сьогодні!";
-	} else {
-		html = html + "<tr style='background:red;'>";
-		diffDays = "Іспит проведено :)" ;
-	}
-	var text1 = item['place'];
+
+
+if (diffDays < 0) {
+    html = html + "<tr style='background-color: #f58a75;'>";
+    diffDays = "Іспит проведено";
+} else if (diffDays === 0) {
+    html = html + "<tr style='background-color: #faff86;'>";
+    diffDays = "Іспит сьогодні";
+} else if (diffDays === 1) {
+    html = html + "<tr style='background-color: #aaee82;'>";
+    diffDays = "Сьогодні консультація";
+} else {
+    
+    diffDays = "Іспит через " + diffDays + " днів";
+}
+
+    
+    var text1 = item['place'];
 	if (text1 == "") {
-		html = html + "<tr>";
-		text1 = "Невідома аудиторія іспиту";
+		text1 = "Невідома аудиторія";
 	}
-	for (var key in item ){
-		html = html + "<td>" + item[key] + "</td>";
-	}
-    
-	html = html + "<td>" + text1 + "</td>" +  "<td>" +  diffDays + "</td>";
+
+    for (var key in item ){
+        if (key == "place" &&  item[key]=="" ) {
+           item[key]= "Невідома аудиторія";
+         }
+           html = html + "<td>" + item[key] + "</td>";
+         }
+
+    html = html +  "<td>" + diffDays + "</td>";
 	html = html + "</tr>";
-    
 
 }
 
-
 function ras() {
-	html = "<table style='b-table'>";
-	html = html + "<tr><td>Name</td><td>Date</td> <td></td> <td>Place</td> <td>Termin</td></tr>";
+	html = "<table style='table; background: #ccccf4'>";
+	
+    html=html+"<tr><td>Назва дисципліти</td><td>Дата іспиту</td><td>Аудиторія</td><td>Повідомлення</td></tr>";
 
 	arrayFriends.forEach(output);
 	html = html + "</table>";

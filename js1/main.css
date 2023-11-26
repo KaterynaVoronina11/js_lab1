@@ -1,8 +1,26 @@
-html{
-	background-color: rgb(206, 238, 244);
-	scroll-behavior: smooth;
-}
 
-.tittle {
-	text-align: center;
+body{
+    background-color:blanchedalmond;
+    width:100%;
+    height: 100%;
+    color:blueviolet;
+}
+h1, h2, div{
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+#do{
+    background-color: blueviolet;
+    border:none;
+    color:bisque;
+    padding:15px 15px 15px 15px;
+    margin: 10px 3px;
+    text-align:center;
+    display:inline-block;
+    border-radius:8px;
+    font-size:16px;
+}
+#do:hover{
+    background-color: rgb(153, 255, 0);
+    color:rgb(134, 86, 12);
+    transition: all 0.2s ease-out;
 }
